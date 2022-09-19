@@ -5,7 +5,7 @@ const user = require("../models/User");
 
 // Register
 router.post('/register', async (req, res) => {
-    const newUser = new User({
+    const newUser = new user({
         username: req.body.username,
         email: req.body.email,
         password: CryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString(),
@@ -38,3 +38,5 @@ router.post('/login', async (req, res) => {
         res.status(500).json(err);
     }
 })
+
+module.exports = router;
