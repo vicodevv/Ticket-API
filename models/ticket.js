@@ -8,7 +8,18 @@ const TicketSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true,
+    },
+    type: {
+        type: String,
+        enum: ['free', 'paid'],
+        default: 'free',
+    },
+    limit: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 10,
     }
-})
+}, {timestamps: true,});
 
 module.exports = mongoose.model('Ticket', TicketSchema)
