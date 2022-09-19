@@ -9,6 +9,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  country: {
+    type: String,
+    required: true,
+    enum: ['Nigeria', 'UK', 'Canada', 'Ghana', 'South Africa'],
+  },
   email: {
     type: String,
     required: true,
@@ -18,6 +23,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-});
+}, {timestamps: true,});
 
- 
+module.exports = mongoose.model('User', UserSchema)
