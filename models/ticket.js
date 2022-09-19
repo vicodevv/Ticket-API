@@ -19,6 +19,9 @@ const TicketSchema = new mongoose.Schema({
         required: true,
         min: 1,
         max: 10,
+    },
+    price: {
+        type: Number,
     }
 }, {timestamps: true,});
 
