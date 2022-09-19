@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const CryptoJS = require("crypto-js");
 const user = require("../models/User");
 const bcrypt = require("bcrypt");
+const User = require("../models/User");
 const saltRounds = 10
 
 // Register
@@ -12,7 +13,7 @@ router.post('/register', async (req, res) => {
         bcrypt.hash(password, saltRounds, async (err, hash) => {
           if (err) {
             console.log(err)
-            res.json('Error hashing password.')
+            res.json('There was an error hashing password.')
           }
     
           const newUser = new user({
@@ -33,23 +34,28 @@ router.post('/register', async (req, res) => {
     })
 //Login
 router.post('/login', async (req, res) => {
+    const { email, password } = req.body
     try {
-        const user = await User.findOne({ email: req.body.email });
-        !user && res.status(401).json("Wrong password or username!");
-
-        const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
-        const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
-
-        originalPassword !== req.body.password && res.status(401).json("Wrong password or username!");
-        const jwtToken = jwt.sign(
-            { id: user._id, isAdmin: user.isAdmin },
-            process.env.SECRET_KEY,
-            { expiresIn: "1d" }
-        );
-        const { password, ...info } = user._doc;
-        res.status(200).json({ ...info, jwtToken });
+        User.findOne({email}, (err, foundUser) => {
+            if(err){
+                console.log(err)
+                res.status(401).json({message: 'Email or password does not match'})
+            }
+            else{
+                bcrypt.compare(password, foundUser.password, (err, result) => {
+                    const jwtToken = jwt.sign(
+                        {id: foundUser._id, email: foundUser.email},
+                        process.env.SECRET_KEY
+                    )
+                    result && res.json({
+                        message: 'Welcome to TicketAPI',
+                        token: jwtToken
+                    })
+                })
+            }
+        })
     } catch (err) {
-        res.status(500).json(err);
+        res.status(401).json({ error: 'Something went wrong.' });
     }
 })
 
