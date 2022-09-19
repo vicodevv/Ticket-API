@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
   firstname: {
@@ -18,7 +18,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  timestamps: true,
-  }
-);
+});
+
  
