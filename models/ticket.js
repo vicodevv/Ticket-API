@@ -14,7 +14,7 @@ const TicketSchema = new mongoose.Schema({
         enum: ['free', 'paid'],
         default: 'free',
     },
-    limit: {
+    amount: {
         type: Number,
         required: true,
         min: 1,

@@ -3,7 +3,9 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const authRoute = require('./routes/auth');
+const ticketRoute = require('./routes/ticket');
 
+const port = process.env.PORT || 3000
 dotenv.config()
 
 mongoose.connect(process.env.MONGO_URL, {
@@ -13,9 +15,10 @@ mongoose.connect(process.env.MONGO_URL, {
 
 app.use(express.json());
 app.use("/api/auth", authRoute);
+app.use("/api/ticket", ticketRoute)
 
 
 
-app.listen(8080, () => {
-  console.log('Backend is running');
+app.listen(port, () => {
+  console.log('Server started successfully. Connected to MongoDB.');
 });
