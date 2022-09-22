@@ -5,6 +5,10 @@ const EventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  location: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     required: true,
@@ -12,7 +16,7 @@ const EventSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
-    enum: ['Music', 'Sports', 'Comedy', 'Concert', 'Conference'],
+    enum: ['online', 'in-person'],
   },
   startDate: {
     type: Date,
@@ -22,14 +26,6 @@ const EventSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  tickets: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Ticket',
-  },
-  user:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  }
-  
 }, {timestamps: true,});
+
+module.exports = mongoose.model('Event', EventSchema)

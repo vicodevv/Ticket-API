@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const authRoute = require('./routes/auth');
 const ticketRoute = require('./routes/ticket');
+const eventRoute = require('./routes/event');
 
 const port = process.env.PORT || 3000
 dotenv.config()
@@ -16,6 +17,7 @@ mongoose.connect(process.env.MONGO_URL, {
 app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/ticket", ticketRoute)
+app.use("/api/event", eventRoute)
  
 
 
