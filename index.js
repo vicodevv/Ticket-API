@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const authRoute = require('./routes/auth');
 const ticketRoute = require('./routes/ticket');
 const eventRoute = require('./routes/event');
+const userRoute = require('./routes/user');
 
 const port = process.env.PORT || 3000
 dotenv.config()
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/ticket", ticketRoute)
 app.use("/api/event", eventRoute)
+app.use("/api/user", userRoute)
  
 
 
