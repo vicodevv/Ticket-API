@@ -14,7 +14,7 @@ router.post('/register', async (req, res) => {
           if (err) {
             console.log(err)
             res.json('There was an error hashing password.')
-          }
+          } 
     
           const newUser = new user({
             firstname,
