@@ -20,7 +20,6 @@ describe ('Users', () => {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(res.statusCode).toBe(200);
-                   
             })
         })
     })
